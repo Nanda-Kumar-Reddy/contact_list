@@ -1,0 +1,1 @@
+{"version":3,"file":"universities.d.ts","sourceRoot":"","sources":["../../src/model/universities.ts"],"names":[],"mappings":"AAaA,OAAiB,EAAU,QAAQ,EAAE,KAAK,EAAE,MAAM,UAAU,CAAC;AAG7D,MAAM,WAAW,WAAY,SAAQ,QAAQ;IAC3C,OAAO,EAAE,MAAM,CAAC;IAChB,IAAI,EAAE,MAAM,CAAC;IACb,GAAG,EAAE,MAAM,CAAC;CACb;AA4BD,QAAA,MAAM,eAAe,EAAE,KAAK,CAAC,WAAW,CAGvC,CAAC;AAEF,eAAe,eAAe,CAAC"}

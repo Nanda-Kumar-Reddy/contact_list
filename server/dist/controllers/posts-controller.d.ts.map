@@ -1,0 +1,1 @@
+{"version":3,"file":"posts-controller.d.ts","sourceRoot":"","sources":["../../src/controllers/posts-controller.ts"],"names":[],"mappings":"AAkBA,OAAO,CAAC,MAAM,CAAC;IACb,UAAU,OAAO,CAAC;QAChB,UAAU,OAAO;YACf,KAAK,CAAC,EAAE;gBACN,CAAC,SAAS,EAAE,MAAM,GAAG,MAAM,CAAC,IAAI,EAAE,CAAC;aACpC,GAAG,MAAM,CAAC,IAAI,EAAE,CAAC;SACnB;KACF;CACF"}

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "prettier-plugin-sort-imports": "^1.8.6"
+  }
+}
