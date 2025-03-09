@@ -1,158 +1,172 @@
-.contactList-main-container {
-    display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
-  min-height: 100vh;
-  min-width: 100%;
-  background-size: cover;
-}
-
-.contact-input-container {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  }
+  .contactList-main-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 40px;
+    min-height: 100vh;
+  }
+  .contact-input-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin-bottom: 30px;
+  }
+  .input-field {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    width: 50%;
-    min-width: 350px;
-    box-shadow: 0px 8px 40px rgba(7, 7, 7, 0.08);
-    align-self: auto;
-    margin: 10px;
-}
-
-.input-feild {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    width: 80%;
-    height: 30px;
-}
-
-.add-contact-button {
-font-family: 'Roboto';
-  font-weight: bold;
-  font-size: 14px;
-  color: #ffffff;
-  height: 30px;
-  width: 20%;
-  margin-bottom: 2px;
-  background-color: #0b69ff;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  margin-left: auto;
-  margin-top: 10px;
-}
-
-.contact-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border-radius: 8px;
-    width: 50%;
-    min-width: 350px;
-    box-shadow: 0px 8px 40px rgba(7, 7, 7, 0.08);
-    align-self: auto;
-    margin: 10px;
-    list-style-type: none;
-}
-
-.each-contact-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    list-style-type: none;
-    height: 100%;
-    width: 100%;
-}
-
-
-.eact-contact {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: space-between; */
-    align-items: start;
-    padding: 10px;
-    list-style-type: none;
-}
-
-.fields-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: start;
-    padding: 10px;
-    overflow: auto;
-}
-
-.edit-button {
-  font-family: 'Roboto';
-  font-weight: bold;
-  font-size: 14px;
-  color: #ffffff;
-  height: 30px;
-  width: 70px;
-  margin-bottom: 2px;
-  background-color: #0b69ff;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  margin-left: auto;
-  margin-top: 10px;
-}
-
-.buttons-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-modal-content {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    border-radius: 8px;
-
-}
-
-.close-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    /* position: fixed; */
-    /* width: 95%; */
-    background-color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
   }
 
-.popup-content {
+  .popup-input-field {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .input-field:focus {
+    border-color: #0b69ff;
+  }
+  .add-contact-button {
+    margin-top: 20px;
+    padding: 12px 0;
+    background-color: #0b69ff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .add-contact-button:hover {
+    background-color: #0056b3;
+  }
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  .contacts-list {
+    width: 400px;
+    list-style: none;
+  }
+  .contact-list-item {
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+  .each-contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+  }
+  .fields-list span {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #555;
+  }
+  .buttons-container {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
-
-}
-
-.popup-heading {
-    font-size: 24px;
-}
-
-.update-button {
-    font-family: 'Roboto';
-    font-weight: bold;
-    font-size: 14px;
-    color: #ffffff;
-    height: 40px;
-    width: 130px;
-    margin-top: 10px;
-    margin-bottom: 2px;
-    align-self: right;
-    background-color: #0b69ff;
-    border-radius: 8px;
+    gap: 10px;
+  }
+  .edit-button,
+  .delete-button,
+  .update-button {
+    padding: 8px 12px;
     border: none;
-    outline: none;
-}
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .edit-button {
+    background-color: #0b69ff;
+    color: #fff;
+  }
+  .edit-button:hover {
+    background-color: #0056b3;
+  }
+  .delete-button {
+    background-color: #ff4d4d;
+    color: #fff;
+  }
+  .delete-button:hover {
+    background-color: #cc0000;
+  }
+  .contact-modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+  }
+  .close-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .popup-heading {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .popup-content label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0 5px;
+    
+  }
+  .close-button {
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+  }
+  .popup-content {
+    display: flex;
+    flex-direction: column;
+  }
+  .update-button {
+    margin-top: 20px;
+    background-color: #0b69ff;
+    color: #fff;
+  }
+  .update-button:hover {
+    background-color: #0056b3;
+  }
+  @media screen and (max-width: 768px) {
+    .contact-input-container,
+    .contacts-list {
+      width: 90%;
+    }
+  }
+  

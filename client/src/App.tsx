@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/home" component={home} />
+          <Route exact path="/" component={home} />
           <Redirect to="not-found" />
         </Switch>
       </BrowserRouter>

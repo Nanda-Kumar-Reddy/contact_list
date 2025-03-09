@@ -3,21 +3,23 @@ import Modal from "react-modal";
 import { VscClose } from "react-icons/vsc";
 import { IconBaseProps } from "react-icons";
 import "./index.css";
-interface contact {
+
+interface Contact {
   _id: string;
   name: string;
   email: string;
   phone: string;
 }
+
 function Home() {
-  const [contacts, setContacts] = useState<contact[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [popupName, setPopupName] = useState("");
   const [popupEmail, setPopupEmail] = useState("");
   const [popupPhone, setPopupPhone] = useState("");
-  const [selectContact, setSelectedContact] = useState<contact | null>(null);
+  const [selectContact, setSelectedContact] = useState<Contact | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const VscCloseIcon = VscClose as React.FC<IconBaseProps>;
@@ -25,77 +27,51 @@ function Home() {
   useEffect(() => {
     fetch("http://localhost:8000/getContacts")
       .then((res) => res.json())
-      .then((data) => {
-        setContacts(data);
-      });
+      .then((data) => setContacts(data));
   }, []);
 
   const addContactToList = async () => {
-    console.log("Adding contact to list");
     try {
       const response = await fetch("http://localhost:8000/create", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          phone: phone,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone }),
       });
-      console.log("response", response);
       const data = await response.json();
       setContacts([...contacts, data]);
     } catch (e) {
       console.log("error", e);
     }
-
     setName("");
     setEmail("");
     setPhone("");
-    //   .then((data) => {
-    //     setContacts([...contacts, data]);
-    //   });
   };
+
   const handleSubmitContact = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     addContactToList();
   };
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
-  };
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPhone(e.target.value);
-  };
-
-  const handlePopupNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePopupNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPopupName(e.target.value);
-  };
-
-  const handlePopupEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePopupEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPopupEmail(e.target.value);
-  };
-  const handlePopupPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePopupPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPopupPhone(e.target.value);
-  };
 
   const handleEditContact = async (id: string) => {
-    console.log("Editing contact");
     try {
       const response = await fetch(
         `http://localhost:8000/updateContact/${id}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: popupName,
             email: popupEmail,
@@ -103,9 +79,7 @@ function Home() {
           }),
         }
       );
-      console.log("response", response);
       const data = await response.json();
-      console.log("data", data);
       const filteredData = contacts.filter(
         (contact) => contact._id !== data._id
       );
@@ -117,13 +91,11 @@ function Home() {
   };
 
   const handleDeleteContact = async (id: string) => {
-    console.log("Deleting contact");
     try {
-      const response = await fetch(
-        `http://localhost:8000/deleteContact/${id}`,
-        { method: "DELETE" }
-      );
-      setContacts((prevContact) => [...prevContact]);
+      await fetch(`http://localhost:8000/deleteContact/${id}`, {
+        method: "DELETE",
+      });
+      setContacts(contacts.filter((contact) => contact._id !== id));
     } catch (e) {
       console.log("error", e);
     }
@@ -146,9 +118,7 @@ function Home() {
     },
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
+  const handleModalClose = () => setIsModalOpen(false);
 
   return (
     <div className="contactList-main-container">
@@ -158,21 +128,24 @@ function Home() {
           type="text"
           name="name"
           placeholder="Name"
-          className="input-feild"
+          className="input-field"
+          value={name}
         />
         <input
           onChange={handleEmailChange}
           type="email"
           name="email"
           placeholder="Email"
-          className="input-feild"
+          className="input-field"
+          value={email}
         />
         <input
           onChange={handlePhoneChange}
           type="text"
           name="phone"
           placeholder="Phone"
-          className="input-feild"
+          className="input-field"
+          value={phone}
         />
         <button
           className="add-contact-button"
@@ -185,78 +158,73 @@ function Home() {
       <Modal
         isOpen={isModalOpen}
         shouldCloseOnOverlayClick={false}
-        onRequestClose={() => setIsModalOpen(false)}
+        onRequestClose={handleModalClose}
         style={customStyles}
         ariaHideApp={false}
       >
         <div className="contact-modal-content">
           <div className="close-container">
-            <div className="post-header">
-              <h1 className="popup-heading">Edit the contact</h1>
-            </div>
+            <h1 className="popup-heading">Edit Contact</h1>
             <VscCloseIcon onClick={handleModalClose} className="close-button" />
           </div>
           <div className="popup-content">
-            <div>
-              <input
-                onChange={handlePopupNameChange}
-                type="text"
-                name="name"
-                value={popupName}
-                placeholder="Name"
-                className="input-feild"
-              />
-              <input
-                onChange={handlePopupEmailChange}
-                type="email"
-                name="email"
-                value={popupEmail}
-                placeholder="Email"
-                className="input-feild"
-              />
-              <input
-                onChange={handlePopupPhoneChange}
-                type="text"
-                name="phone"
-                value={popupPhone}
-                placeholder="Phone"
-                className="input-feild"
-              />
-            </div>
-
-            <div>
-              <button
-                onClick={() => handleEditContact(selectContact?._id || "")}
-                className="update-button"
-              >
-                Update Contact
-              </button>
-            </div>
+            <label htmlFor="popupName">Name</label>
+            <input
+              id="popupName"
+              onChange={handlePopupNameChange}
+              type="text"
+              name="name"
+              value={popupName}
+              placeholder="Name"
+              className="popup-input-field"
+            />
+            <label htmlFor="popupEmail">Email</label>
+            <input
+              id="popupEmail"
+              onChange={handlePopupEmailChange}
+              type="email"
+              name="email"
+              value={popupEmail}
+              placeholder="Email"
+              className="popup-input-field"
+            />
+            <label htmlFor="popupPhone">Phone</label>
+            <input
+              id="popupPhone"
+              onChange={handlePopupPhoneChange}
+              type="text"
+              name="phone"
+              value={popupPhone}
+              placeholder="Phone"
+              className="popup-input-field"
+            />
+            <button
+              onClick={() => handleEditContact(selectContact?._id || "")}
+              className="update-button"
+            >
+              Update Contact
+            </button>
           </div>
         </div>
-
-        {/* Add image resizing controls here (optional) */}
-        <div className="posting-actions"></div>
       </Modal>
       <h1>Contacts List</h1>
-      <ul>
+      <ul className="contacts-list">
         {contacts.map((contact) => (
-          <div className="contact-list">
+          <li key={contact._id} className="contact-list-item">
             <div className="each-contact-container">
               <div className="fields-list">
-                <li key={contact._id}>
-                  <ol className="eact-contact">
-                    <li>Name: {contact.name}</li>
-                    <li>Email: {contact.email}</li>
-                    <li>Phone: {contact.phone}</li>
-                  </ol>
-                </li>
+                <span>Name: {contact.name}</span>
+                <span>Email: {contact.email}</span>
+                <span>Phone: {contact.phone}</span>
               </div>
               <div className="buttons-container">
                 <button
                   onClick={() => {
-                    setIsModalOpen(true);
+                    setPopupName(contact.name);
+                    setPopupEmail(contact.email);
+                    setPopupPhone(contact.phone);
                     setSelectedContact(contact);
+                    setIsModalOpen(true);
                   }}
                   className="edit-button"
                 >
@@ -264,14 +232,13 @@ function Home() {
                 </button>
                 <button
                   onClick={() => handleDeleteContact(contact._id)}
-                  className="edit-button"
+                  className="delete-button"
                 >
                   Delete
                 </button>
               </div>
             </div>
-            {/* <button  onClick={() => handleEditContact(contact._id)}>Edit</button> */}
-          </div>
+          </li>
         ))}
       </ul>
     </div>
